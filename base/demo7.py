@@ -47,22 +47,15 @@ print(next(g))
 
 # 杨辉三角
 def triangles():
-	last_list = [1]
+	L = [1]
 	while True:
-		yield last_list
-
-		new_list = []
-		ni = len(last_list)+1
-		for j in list(range(ni)):
-			if j-1 < 0:
-				new_list.append(last_list[0])
-			elif j + 1 >= ni:
-				new_list.append(last_list[len(last_list)-1])
-			else :
-				new_list.append(last_list[j-1] + last_list[j])
-		last_list = new_list
+		yield L
+		L = [L[j-1] + L[j] for j in list(range(1 , len(L)))]
+		L.insert(0 , 1)
+		L.append(1)
 		
 g = triangles()
+
 print(next(g))
 print(next(g))
 print(next(g))
