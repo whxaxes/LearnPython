@@ -43,6 +43,9 @@ new_list.append(10)
 print(my_list)
 print(new_list)
 
+# 合并list，直接相加即可
+print([1,2,3] + [4,5,6])
+
 # tuple 跟list一样，但是初始化后不能更改，获取元素的方法跟list一样，但是没有append、insert，pop方法
 my_tuple = ('wnaghx' , 'zhaoritian' , 'dagb')
 
