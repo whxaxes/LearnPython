@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Python map reduce filter
+# Python map reduce filter sorted
 
 def db(x):
 	return x*x
@@ -41,3 +41,24 @@ L = ['asd' , '' , None , 'asdasd' , 1123]
 def gl(x):
 	return x and isinstance(x , str)
 print(list(filter(gl , L)))
+
+# 练习
+def is_palindrome(n):
+	n = str(n)
+	l = len(n)//2
+	return (not l) or n[:l] == n[len(n)-l:][::-1]
+print(list(filter(is_palindrome , list(range(1000)))))
+
+
+# sorted
+# key为传入函数，reverse为是否翻转
+print(sorted(['bob', 'about', 'Zoo', 'Credit'] , key=str.lower , reverse=True))
+
+# lambda 为匿名函数
+print(sorted(['bob', 'about', 'Zoo', 'Credit'] , key=lambda x:len(x) , reverse=True))
+
+L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
+# 按照姓名排序
+print(sorted(L , key=lambda x:x[0]))
+# 按照分数排序
+print(sorted(L , key=lambda x:x[1] , reverse=True))
