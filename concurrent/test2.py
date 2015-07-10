@@ -11,9 +11,10 @@ import queue
 from urllib import request
 
 class Consumer(Thread):
-	def __init__(self , queue):
+	def __init__(self , queue , id):
 		Thread.__init__(self)
 		self._queue = queue
+		self._id = id
 
 	def run(self):
 		while True:
@@ -24,12 +25,19 @@ class Consumer(Thread):
 				break
 
 			res = request.urlopen(msg)
-			print("visited %s" % msg)
+			print("thread_%s run: visited %s" % (self._id , msg))
 		print("end")
 
 
 def Producer():
 	urls = [
+		'http://www.bilibili.com',
+		'http://www.python.org',
+		'http://www.wanghx.cn',
+		'http://appled.cc/board/price',
+		'http://www.bilibili.com',
+		'http://www.python.org',
+		'http://www.wanghx.cn',
 		'http://www.bilibili.com',
 		'http://www.python.org',
 		'http://www.wanghx.cn',
@@ -50,19 +58,15 @@ def Producer():
 	for _ in workers:
 		q.put("quit")
 	# 运行线程
-	for i,u in enumerate(urls):
-		ni = i%len(workers)
-		workers[ni].join()
-
-	# for worker in workers:
-	# 	worker.join()
+	for worker in workers:
+		worker.join()
 
 	print("Done !!! Time taken : %s" % (time.time()-start_time))
 
 def build_worker_pool(queue , size):
 	workers = []
 	for _ in range(size):
-		worker = Consumer(queue)
+		worker = Consumer(queue , len(workers))
 		worker.start()
 		workers.append(worker)
 	return workers
